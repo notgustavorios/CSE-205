@@ -1,0 +1,74 @@
+public class MySorts {
+   // implement your quicksort algorithm below
+   
+   public static void quicksort(IList<Integer> numbers){
+      quicksortHelper(numbers, 0, numbers.size() - 1);
+   }
+   private static void quicksortHelper(IList<Integer> array, int lowIndex, int highIndex){
+      
+      if(lowIndex >= highIndex){
+         return;
+      }
+      
+      Integer pivot = array.get(highIndex);
+      int leftPointer = lowIndex;
+      int rightPointer = highIndex;
+      
+      while(leftPointer < rightPointer){
+           
+         while(array.get(leftPointer) <= array.get(rightPointer) && leftPointer < rightPointer){
+            leftPointer++;  
+         }
+         while(array.get(rightPointer) >= array.get(leftPointer) && rightPointer > leftPointer){
+            rightPointer--;  
+         }
+         swap(array, leftPointer, rightPointer);
+         
+      }
+      swap(array, leftPointer, highIndex);
+      
+      quicksortHelper(array, lowIndex, leftPointer - 1);
+      quicksortHelper(array, rightPointer+1, highIndex);
+      
+      
+   }
+   private static int partition(IList<Integer> numbers, int lowIndex, int highIndex){
+         
+      Integer pivot = numbers.get(highIndex);
+      int low = lowIndex;
+      int high = highIndex;
+      
+      boolean done = false;
+      while(!done){
+         
+         while(numbers.get(low) < pivot){
+            low++;  
+         }
+         while(pivot < numbers.get(high)){
+            high--;  
+         }
+         if(low >= high){
+            done = true;  
+         }
+         else{
+            swap(numbers, low, high);
+            low++;
+            high--;
+         }
+         
+      }
+      return high;
+     
+      
+      
+   } 
+      
+   
+   private static void swap(IList<Integer> array, int lowerIndex, int higherIndex){
+      Integer temp = array.get(lowerIndex);
+      array.set(lowerIndex, array.get(higherIndex));
+      array.set(higherIndex, temp);
+   }
+   
+   
+}
